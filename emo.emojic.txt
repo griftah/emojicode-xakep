@@ -21,7 +21,8 @@
     :custard: имя-результата :abc::abc:
     :repeat_one: индекс :fast_forward: 2 :chicken: аргументы :grapes:
         :icecream: имя-исходника :beer: :pig_nose: аргументы индекс
-        :custard: имя-результата :cookie: :beer: :pig_nose: :gun: имя-исходника :abc:.:abc: 0 :abc:.emojic:abc: :cookie:
+        # :custard: имя-результата :cookie: :beer: :pig_nose: :gun: имя-исходника :abc:.:abc: 0 :abc:.emojic:abc: :cookie:
+        :custard: имя-результата :artist_palette: имя-исходника :abc:.txt:abc: :abc::abc:
         :grinning: :cookie::abc:Файл :abc: имя-исходника :abc: -> :abc: имя-результата:cookie:
 
         :icecream: исходник :beer: :abcd: :beer: :doughnut::card_index::page_facing_up: имя-исходника
