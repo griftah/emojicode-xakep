@@ -1,35 +1,50 @@
+#!/usr/bin/env python
 # coding=utf-8
-
-# emo.py файл - сгенерирует аналогичный файл с расширением emojic и эмодзи.
-# emo.py файл . - сгенерирует и запустит его.
-# emo.py > текст - скомпилирует текст
 
 import sys
 import codecs
-# import os
 import subprocess
+import re
 import emoji
 
 if __name__=='__main__':
-    filename = sys.argv[1]
-    if filename == '-':
-        print emoji.emojize(u' '.join((c.decode('utf-8') for c in sys.argv[2:])))
-        sys.exit(0)
+    if len(sys.argv)<2:
+        print './emo.py file1.emojic.txt file2.emojic.txt file3.emojic.txt'
+        print 'Преобразует в emojic и запускает последний.'
+        print 'Если последний - точка, то прекращает без запуска.'
+        exit(0)
 
-    basename = filename.rsplit('.', 2)[0]
-    with codecs.open(filename, 'r', 'utf-8') as f:
-        src = emoji.emojize(f.read().replace('#', ':older_man:').replace(':abc::older_man::abc:', ':abc:#:abc:'), True)
+    for filename in sys.argv[1:]:
+        if filename=='.':
+            exit(0)
 
-    with codecs.open(basename+'.emojic', 'w', 'utf-8') as f:
-        f.write(src)
+        with codecs.open(filename, 'r', 'utf-8') as f:
+            src = emoji.emojize(f.read().replace('#', ':older_man:').replace(':abc::older_man::abc:', ':abc:#:abc:'), True)
 
-    if src.count(u'🏁'):
-        try:
-            subprocess.check_output('emojicodec %s.emojic'%basename, stderr=subprocess.STDOUT, shell=True)
-            if len(sys.argv)<3:
-                subprocess.call('emojicode %s.emojib'%basename, shell=True)
-        except subprocess.CalledProcessError as err:
-            for n, line in enumerate(src.strip().split('\n')):
-                print n, '\t', line
-            print err.output
+        basename = filename.rsplit('.', 2)[0]
 
+        with codecs.open(basename+'.emojic', 'w', 'utf-8') as f:
+            f.write(src)
+
+        # компилирует только в том случае, если внутри есть флажок.
+        if src.count(u'🏁'):
+            try:
+                subprocess.check_output(
+                    'emojicodec %s.emojic'%basename,
+                    stderr=subprocess.STDOUT, shell=True)
+            except subprocess.CalledProcessError as err:
+                # в случае ошибки показываем фрагмент исходника
+                try:
+                    where = int(re.match(
+                        u'\xf0\x9f\x9a\xa8 line (\d+)',
+                        err.output).group(1)
+                    )
+                    for n in xrange(0 if where-15<0 else where-15, where+15):
+                        print '%d\t%s'%(n+1, src.strip().split('\n')[n])
+                except AttributeError:
+                   pass
+                print err.output
+                exit(0)
+
+    # исполняем последний файл в списке
+    subprocess.call('emojicode %s.emojib'%basename, shell=True)
