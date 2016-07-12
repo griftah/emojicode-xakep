@@ -6,7 +6,8 @@
 
 import sys
 import codecs
-import os
+# import os
+import subprocess
 import emoji
 
 if __name__=='__main__':
@@ -15,18 +16,20 @@ if __name__=='__main__':
         print emoji.emojize(u' '.join((c.decode('utf-8') for c in sys.argv[2:])))
         sys.exit(0)
 
-    basename = filename.rsplit('.', 1)[0]
-    src = codecs.open(filename, 'r', 'utf-8').read()
-    src = emoji.emojize(src.replace('#', ':older_man:').replace(':abc::older_man::abc:', ':abc:#:abc:'), True)
+    basename = filename.rsplit('.', 2)[0]
+    with codecs.open(filename, 'r', 'utf-8') as f:
+        src = emoji.emojize(f.read().replace('#', ':older_man:').replace(':abc::older_man::abc:', ':abc:#:abc:'), True)
 
-    for n, line in enumerate(src.split('\n')):
-        print n, '\t', line
-
-    srcname = basename # +'.emojic'
-    with codecs.open(srcname, 'w', 'utf-8') as f:
+    with codecs.open(basename+'.emojic', 'w', 'utf-8') as f:
         f.write(src)
 
-    os.system('emojicodec %s'%srcname)
+    if src.count(u'🏁'):
+        try:
+            subprocess.check_output('emojicodec %s.emojic'%basename, stderr=subprocess.STDOUT, shell=True)
+            if len(sys.argv)<3:
+                subprocess.call('emojicode %s.emojib'%basename, shell=True)
+        except subprocess.CalledProcessError as err:
+            for n, line in enumerate(src.strip().split('\n')):
+                print n, '\t', line
+            print err.output
 
-    if len(sys.argv)>2:
-        os.system('emojicode %s'%basename+'.emojib')
