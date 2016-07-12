@@ -22,7 +22,7 @@ if __name__=='__main__':
     for n, line in enumerate(src.split('\n')):
         print n, '\t', line
 
-    srcname = basename+'.emojic'
+    srcname = basename # +'.emojic'
     with codecs.open(srcname, 'w', 'utf-8') as f:
         f.write(src)
 
