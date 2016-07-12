@@ -39,8 +39,9 @@ if __name__=='__main__':
                         u'\xf0\x9f\x9a\xa8 line (\d+)',
                         err.output).group(1)
                     )
-                    for n in xrange(0 if where-15<0 else where-15, where+15):
-                        print '%d\t%s'%(n+1, src.strip().split('\n')[n])
+                    l = src.strip().split('\n')
+                    for n in xrange(max(where-15, 0), min(where+15, len(l))):
+                        print '%d %s\t%s'%(n+1, '>' if n==where-1 else '', l[n])
                 except AttributeError:
                    pass
                 print err.output
