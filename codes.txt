@@ -1,0 +1,58 @@
+:package: files :red_circle:
+
+:whale2: :abcd: :grapes:
+    :older_man: создаёт новую строку, в которой все
+    :older_man: упоминания @было заменены на @стало
+    :pig2: :artist_palette: @было :abcd: @стало :abcd: :arrow_right: :abcd: :grapes:
+        :apple: :large_blue_diamond: :abcd::ice_cream: :gun: :dog2: @было @стало
+    :watermelon:
+:watermelon:
+
+
+:older_man: Эмодзи
+:rabbit2: :sunflower: :grapes:
+    :cake: эмодзи :abcd:
+    :cake: название :abcd:
+
+    :cat2: :droplet: @эмодзи :abcd: @название :abcd: :grapes:
+        :custard: эмодзи @эмодзи
+        :custard: название @название
+    :watermelon:
+
+    :pig2: :blossom: :arrow_right: :abcd: :grapes:
+        :apple: эмодзи
+    :watermelon:
+
+    :pig2: :label: :arrow_right: :abcd: :grapes:
+        :apple: название
+    :watermelon:
+
+    :older_man: короткое название эмодзи
+    :pig2: :gear: :arrow_right: :abcd: :grapes:
+        :apple: :cookie::abc:::abc::artist_palette: название :abc: :abc: :abc:_:abc: :abc:::abc::cookie:
+    :watermelon:
+
+    :pig2: :grinning: :grapes:
+        :grinning: :cookie:эмодзи :abc::x:t:abc: название:cookie:
+    :watermelon:
+:watermelon:
+
+
+:older_man: Библиотека эмодзи
+:rabbit2: :book: :grapes:
+    :cake: словарь  :ice_cream::shell::sunflower:
+
+    :cat2: :open_book: @имя-файла :abcd: :grapes:
+        :custard: словарь :large_blue_diamond: :ice_cream::shell::sunflower: :frog:
+        :icecream: исходник :beer: :abcd: :beer: :doughnut::card_index::page_facing_up: @имя-файла
+
+        :repeat_one: строка :gun: исходник :abc::x:n:abc: :grapes:
+            :icecream: разбитая-строка :gun: строка :abc::x:t:abc:
+            :tangerine: :arrow_forward: :chicken: разбитая-строка 1 :grapes:
+                :icecream: эмодзи :wrench: :beer: :pig_nose: разбитая-строка 0
+                :icecream: название :wrench: :beer: :pig_nose: разбитая-строка 1
+                :bear: словарь :large_blue_diamond: :sunflower::droplet: эмодзи название
+            :watermelon:
+        :watermelon:
+    :watermelon:
+:watermelon:

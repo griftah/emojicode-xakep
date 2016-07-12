@@ -1,0 +1,87 @@
+:scroll: :abc:codes.emojic:abc:
+
+:rabbit2: :bicycle: :grapes:
+    :crocodile: :dango::shell::sunflower:
+
+    :cake: словарь :ice_cream::shell::sunflower:
+    :cake: слово :abcd:
+    :cake: индекс :steam_locomotive:
+
+    :cat2: :bell: @словарь :ice_cream::shell::sunflower: @слово :abcd: :grapes:
+        :custard: словарь @словарь
+        :custard: слово @слово
+        :custard: индекс 0
+        :runner: :dog2:
+    :watermelon:
+
+    :older_man: промотать индекс до ближайшего
+    :older_man: эмодзи с нужным словом в названии
+    :pig2: :runner: :grapes:
+        :icecream: стоп :chicken: словарь
+        :repeat: :arrow_backward: индекс стоп :grapes:
+            :tangerine: :icecream: эмодзи :pig_nose: словарь индекс :grapes:
+                :tangerine: :negative_squared_cross_mark: :cloud: :mag: :label: эмодзи слово :grapes:
+                    :apple: :zap:
+                :watermelon:
+            :watermelon:
+            :chocolate_bar: индекс
+        :watermelon:
+    :watermelon:
+
+    :older_man: вернуть следующий элемент
+    :pig2: :arrow_down_small: :arrow_right: :sunflower: :grapes:
+        :icecream: эмодзи :beer: :pig_nose: словарь индекс
+        :chocolate_bar: индекс
+        :runner: :dog2:
+        :apple: эмодзи
+    :watermelon:
+
+    :older_man: есть ли ещё элементы
+    :pig2: :question: :arrow_right: :ok_hand: :grapes:
+        :apple: :arrow_backward: индекс :chicken: словарь
+    :watermelon:
+:watermelon:
+
+
+:rabbit2: :bicyclist: :grapes:
+    :crocodile: :repeat_one::shell::sunflower:
+
+    :cake: словарь :ice_cream::shell::sunflower:
+    :cake: слово :abcd:
+
+    :cat2: :bell: @словарь :ice_cream::shell::sunflower: @слово :abcd: :grapes:
+        :custard: словарь @словарь
+        :custard: слово @слово
+    :watermelon:
+
+    :pig2: :dango: :arrow_right: :bicycle: :grapes:
+        :apple: :large_blue_diamond: :bicycle::bell: словарь слово
+    :watermelon:
+:watermelon:
+
+
+:whale2: :book: :grapes:
+    :pig2: :knife: @слово :abcd: :arrow_right: :bicyclist: :grapes:
+        :apple: :large_blue_diamond: :bicyclist::bell: словарь @слово
+    :watermelon:
+:watermelon:
+
+
+:checkered_flag: :grapes:
+    :icecream: аргументы :doughnut::film_frames::computer:
+    :tangerine: :icecream: слово :pig_nose: аргументы 2 :grapes:
+        :icecream: словарь-эмодзи :large_blue_diamond: :book::open_book: :abc:emoji.txt:abc:
+        :custard: количество 0
+        :repeat_one: эмодзи :knife: словарь-эмодзи слово :grapes:
+            :grinning: эмодзи
+            :chocolate_bar: количество
+        :watermelon:
+        :tangerine: :stuck_out_tongue: количество 0 :grapes:
+            :grinning: :cookie::abc:Эмодзи со словом ":abc: слово :abc:" в названиии нет:abc::cookie:
+        :watermelon:
+    :watermelon:
+    :strawberry: :grapes:
+        :grinning: :abc:Список эмодзи с нужным словом в описании:abc:
+        :grinning: :abc:Запуск: emojicode find.emojib слово:abc:
+    :watermelon:
+:watermelon:
