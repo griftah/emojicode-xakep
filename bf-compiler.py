@@ -1,6 +1,6 @@
 # coding=utf-8
 
-# Компилятор Brainfuck в Python
+# Компилятор Brainfuck
 
 import sys, os, codecs
 import emoji
@@ -20,6 +20,7 @@ class Command(object):
         self.indent = indent
 
 
+# Компилирует Brainfuck в заданный язык.
 class Compiler(object):
     # Словарь команд.
     # Ключ - команда Brainfuck.
@@ -61,6 +62,7 @@ class Compiler(object):
         return '\n'.join(self.lines)
 
 
+# Компилирует и одновременно оптимизирует, складывая повторяющиеся команды.
 class Collector(Compiler):
     def __init__(self, indent=0):
         super(self.__class__, self).__init__(indent)
@@ -86,26 +88,31 @@ class Collector(Compiler):
             return cmd
 
 
+# Скомпилировать брейнфак в питон.
 def py_compile(code, f=sys.stdout,  optimize = False):
     w = Compiler() if optimize else Collector()
-    w.define('begin', '''
+    w.define('begin', u'''
+# Создано bf-compiler.py из исходника на Brainfuck.
 import sys
 tape = [0]*32000
 xc = 0
 ''')
-    w.define('+', 'tape[xc]+=%d')
-    w.define('-', 'tape[xc]-=%d')
-    w.define('.', 'sys.stdout.write(chr(tape[xc]))') #; sys.stdout.flush()')
-    w.define('>', 'xc+=%d')
-    w.define('<', 'xc-=%d')
-    w.define('[', 'while tape[xc]:', indent=1)
+    w.define('+', u'tape[xc]+=%d')
+    w.define('-', u'tape[xc]-=%d')
+    w.define('.', u'sys.stdout.write(chr(tape[xc]))') #; sys.stdout.flush()')
+    w.define('>', u'xc+=%d')
+    w.define('<', u'xc-=%d')
+    w.define('[', u'while tape[xc]:', indent=1)
     w.define(']', None, indent=-1)
     f.write(w.compile(code))
 
 
+# Скомпилировать брейнфак в эмодзикод.
 def emo_compile(code, f=sys.stdout,  optimize = False):
     w = Collector() if optimize else Compiler()
     w.define('begin', u'''
+:older_man: Создано bf-compiler.py из исходника на Brainfuck.
+
 :package: files :red_circle:
 
 :older_man: аналог chr в питоне

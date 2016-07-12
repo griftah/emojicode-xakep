@@ -1,4 +1,5 @@
 
+# Создано bf-compiler.py из исходника на Brainfuck.
 import sys
 tape = [0]*32000
 xc = 0
