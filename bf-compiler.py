@@ -92,6 +92,7 @@ class Collector(Compiler):
 def py_compile(code, f=sys.stdout,  optimize = False):
     w = Compiler() if optimize else Collector()
     w.define('begin', u'''
+# coding=utf-8
 # Создано bf-compiler.py из исходника на Brainfuck.
 import sys
 tape = [0]*32000
