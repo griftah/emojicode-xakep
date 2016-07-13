@@ -19,7 +19,11 @@ if __name__=='__main__':
             exit(0)
 
         with codecs.open(filename, 'r', 'utf-8') as f:
-            src = emoji.emojize(f.read().replace('#', ':older_man:').replace(':abc::older_man::abc:', ':abc:#:abc:'), True)
+            src = emoji.emojize(
+                f.read().
+                replace('#', ':older_man:').
+                replace(':abc::older_man::abc:', ':abc:#:abc:'),
+                True)
 
         basename = filename.rsplit('.', 2)[0]
 

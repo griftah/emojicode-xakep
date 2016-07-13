@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # coding=utf-8
 
 import sys
@@ -60,6 +61,20 @@ class Brainfuck(object):
 
 
 if __name__=='__main__':
-    # from timeit import timeit
+    import codecs
 
-    Brainfuck(open(sys.argv[1]).read(), True).run()
+    optimize = False
+    filename = None
+    for arg in sys.argv[1:]:
+        if arg=='-o' or arg=='-O':
+            optimize = True
+        else:
+            filename = arg
+
+    if filename:
+        with codecs.open(filename, 'r', 'utf-8') as f:
+            brainfuck = Brainfuck(f.read(), optimize)
+        brainfuck.run()
+    else:
+        print '.\\brainfuck.py source.b'.ljust(40), 'исполнить source.b'
+        print '.\\brainfuck.py -o source.b'.ljust(40), '-o включает оптимизацию'
