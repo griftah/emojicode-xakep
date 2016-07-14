@@ -1,0 +1,93 @@
+📦 files 🔴
+
+👴 аналог chr в питоне
+🐋 🚂 🍇
+    🐖 🎩 ➡ 🔣 🍇
+        🍎 🍺 🔬 🔤?????????❌t❌n??❌r?????????????????? !"👴$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~🔤 🐕
+    🍉
+🍉
+
+
+🐇 📽 🍇
+    🍰 code 🍨🐚🔣
+    🍰 args 🍨🐚🚂
+
+    🐈 📜 @text 🔡 🍇
+        🍮 code 🔷 🍨🐚🔣 🐸
+        🍮 args 🔷 🍨🐚🚂 🐸
+        🍦 brackets 🔷 🍨🐚🚂 🐸
+
+        🍮 pc 0
+        🔂 char @text 🍇
+            🍊 🍦 legal 🔍 🔤[]<>+-,.🔤 🔡 char 🍇
+                🐻 code char
+                🐻 args 1
+                🍊 😛 char 🔟[ 🍇
+                    🐻 brackets pc
+                🍉
+                🍋 😛 char 🔟] 🍇
+                    🍦 left 🍺 🐼 brackets
+                    🍦 right pc
+                    🐷 args left right
+                    🐷 args right ➖ left 1
+                🍉
+                🍫 pc
+            🍉
+        🍉
+    🍉
+
+    🐖 🏃 🍇
+        🍰 char 🔣
+        🍦 stdout 🍩📤📄
+        🍦 code_len 🐔 code
+        🍦 tape 🔷 🍨🐚🚂 🐧 32000
+        🍮 xc 0
+        🍮 pc 0
+
+        🔂 индекс ⏩ 0 32000 🍇
+            🐻 tape 0
+        🍉
+
+        🔁 ◀ pc code_len 🍇
+            🍮 char 🍺 🐽 code pc
+            👴 😀 🍪🔡 pc 10 🔤❌t🔤 🔡 char 🔤❌t🔤 🔡 🍺 🐽 bracket_map pc  10 🔤❌t🔤 🔡 🍺 🐽 tape xc 10 🍪
+            🍊 😛 char 🔟+ 🍇
+                🐷 tape xc ➕ 🍺 🐽 tape xc 1
+            🍉
+            🍋 😛 char 🔟- 🍇
+                🐷 tape xc ➖ 🍺 🐽 tape xc 1
+            🍉
+            🍋 😛 char 🔟> 🍇
+                🍫 xc
+            🍉
+            🍋 😛 char 🔟< 🍇
+                🍳 xc
+            🍉
+            🍋 🎊 😛 char 🔟[  😛 🍺 🐽 tape xc 0 🍇
+                🍮 pc 🍺 🐽 args pc
+            🍉
+            🍋 😛 char 🔟]  🍇
+                🍮 pc 🍺 🐽 args pc
+            🍉
+            🍋 😛 char 🔟. 🍇
+                👴 😀 🔡 🍺 🐽 tape xc 10
+                ✏ stdout 📇 🔡 🎩 🍺 🐽 tape xc
+            🍉
+            🍫 pc
+        🍉
+    🍉
+🍉
+
+
+🏁 🍇
+    🍦 аргументы 🍩🎞💻
+    🍮 исходник 🔤🔤
+    🍊 🍦 имя-файла 🐽 аргументы 2 🍇
+        🍮 исходник 🍺 🔡 🍺 🍩 📇 📄 имя-файла
+    🍉
+    🍓 🍇
+        🍮 исходник 🍺 🔡 🍺 🍩 📇 📄 🔤hello.b🔤
+    🍉
+    🍦 program 🔷 📽📜 исходник
+    🏃 program
+🍉

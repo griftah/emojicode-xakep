@@ -3,6 +3,7 @@
 
 import sys
 
+
 class Command(object):
     def __init__(self, char):
         self.char = char
@@ -19,7 +20,7 @@ class Brainfuck(object):
             self.load(brainfuck, optimize)
 
     def load(self, brainfuck, optimize=True):
-        braces = []
+        brackets = []
         self.code = code = [Command('begin')]
         for char in brainfuck:
             if char in '[]<>.,+-':
@@ -28,9 +29,9 @@ class Brainfuck(object):
                 else:
                     code.append(Command(char))
                     if char=='[':
-                        braces.append(len(code)-1)
+                        brackets.append(len(code)-1)
                     elif char==']':
-                        left = braces.pop()
+                        left = brackets.pop()
                         code[left].arg = len(code)-1
                         code[-1].arg = left
         self.code.append(Command('end'))
@@ -43,6 +44,7 @@ class Brainfuck(object):
         prog_len = len(code)
         while pc<prog_len:
             cmd = code[pc]
+            # print pc-1, '\t', cmd.char, '\t', cmd.arg, '\t', tape[xc]
             if cmd.char=='+':
                 tape[xc]+=cmd.arg
             elif cmd.char=='-':
