@@ -103,6 +103,7 @@ class Compiler(Brainfuck):
                     self.write(f, d.src, indent)
             except KeyError:
                 pass
+        f.write('\n')
 
 
 class PythonCompiler(Compiler):
@@ -123,7 +124,7 @@ xc = 0
         self.define(']', None, indent=-1)
 
 
-class BrainfuckCompiler(Compiler):
+class EmojicodeCompiler(Compiler):
     def define_lang(self):
         self.define('begin',
 u'''👴 Автоматически скомпилировано из Brainfuck.
@@ -155,73 +156,90 @@ u'''👴 Автоматически скомпилировано из Brainfuck.
         self.define('end', u'🍉', indent=-1)
 
 
+class CCompiler(Compiler):
+    def define_lang(self):
+        self.define('begin',
+u'''/* Автоматически скомпилировано из Brainfuck. */
+#include <stdio.h>
+int main(int argc, char **argv) {
+    int tape[32768];
+    int xc = 0;
+''', indent=1)
+        self.define('+', u'tape[xc]++;', u'tape[xc]+=%d;')
+        self.define('-', u'tape[xc]--;', u'tape[xc]-=%d;')
+        self.define('.', u'putchar(tape[xc]);')
+        self.define('>', u'xc++;', u'xc+=%d;')
+        self.define('<', u'xc--;', u'xc-=%d;')
+        self.define('[', u'while (tape[xc]) {', indent=1)
+        self.define(']', u'}', indent=-1)
+        self.define('end', u'putchar(10); return 0; }', indent=-1)
+
+
 if __name__=='__main__':
     import codecs
     import subprocess
-    import time
+    from timeit import default_timer as timer
 
     source_filename = None
-    output_filename = None
-    prep_filename = None
     optimize = False
-    compiler = None
-    ext = None          # расширение файла для подготовки
-    run_ext = None      # расширение файла для запуска
+    lang = None
     run = True          # исполнять
-    run_cmd = None  # команда для запуска скомпилированого файла
-    prep_cmd = None  # команда для подготовки к запуску
     t = 0
+
+    compilers = {
+        'python':    ( PythonCompiler, '.py', 'python %s'),
+        'emojicode': ( EmojicodeCompiler, '.emojic', 'emojicode %s'),
+        'c':         ( CCompiler, '.c', './%s')
+    }
 
     for arg in sys.argv[1:]:
         if arg=='-o':
             optimize = True
         elif arg=='.':
             run = False
-        elif arg=='python':
-            compiler = PythonCompiler
-            ext = '.py'
-            run_ext = None
-            prep_cmd = None
-            run_cmd = u'python %s'
-        elif arg=='brainfuck':
-            compiler = BrainfuckCompiler
-            ext = '.emojic'
-            run_ext = '.emojib'
-            prep_cmd = u'emojicodec %s'
-            run_cmd = u'emojicode %s'
         elif arg.endswith('.b'):
             source_filename = arg
+        elif compilers.has_key(arg):
+            lang = arg
 
     if source_filename:
         with codecs.open(source_filename, 'r', 'utf-8') as f:
             source = f.read()
-        if compiler:
-            output_filename = source_filename.replace('.b', ext)
-            with codecs.open(output_filename, 'w', 'utf-8') as f:
-                compiler(source, optimize).compile(f)
-            if prep_cmd:
-                if subprocess.call(prep_cmd%output_filename, shell=True):
-                    exit(1)
-                elif run_ext:
-                    prep_filename = output_filename
-                    output_filename = source_filename.replace('.b', run_ext)
-            if run_cmd and run:
-                t0 = time.clock()
-                subprocess.call(run_cmd%output_filename, shell=True)
-                t = time.clock()-t0
-                # Удаление сгенерированных файлов
-                subprocess.call(u'rm %s'%output_filename, shell=True)
-                if prep_filename:
-                    subprocess.call(u'rm %s'%prep_filename, shell=True)
-            else:
-                print source_filename, '->', prep_filename or output_filename
-        else:
-            t0 = time.clock()
-            Brainfuck(source, optimize).run()
-            t = time.clock()-t0
+        if lang:
+            compiler, ext, run_cmd = compilers[lang]
 
+            # компиляция
+            output = [source_filename.replace('.b', ext)]
+            with codecs.open(output[-1], 'w', 'utf-8') as f:
+                compiler(source, optimize).compile(f)
+
+            # создание исполняемых файлов
+            if lang=='emojicode':
+                subprocess.call('emojicodec %s'%output[-1], shell=True)
+                output.append(source_filename.replace('.b', '.emojib'))
+            elif lang=='c':
+                output.append(source_filename.replace('.b', '.out'))
+                subprocess.call(
+                    'cc %s -o %s'%(output[0], output[1]), shell=True)
+
+            # запуск
+            if run:
+                t0 = timer()
+                subprocess.call(run_cmd%output[-1], shell=True)
+                t = timer()-t0
+                # Удаление сгенерированных файлов
+                for name in output:
+                    subprocess.call(u'rm %s'%name, shell=True)
+            else:
+                print source_filename, '->', ' -> '.join(output)
+        else:
+            t0 = timer()
+            Brainfuck(source, optimize).run()
+            t = timer()-t0
+
+        # время работы
         if t:
-            print '\nt =', t, 's'
+            print '\nt = %.3f s'%t
     else:
         for example, comment in (
             ('%s source.b', 'исполнить source.b интерпретатором'),

@@ -11,3 +11,7 @@ for bf in glob('*.b'):
         if not filename.endswith('.b'):
             print filename
             os.system('rm %s'%filename)
+
+if os.path.exists('a.out'):
+    print 'a.out'
+    os.system('rm a.out')
