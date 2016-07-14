@@ -1,0 +1,81 @@
+:package: files :red_circle:
+
+:older_man: аналог chr в питоне
+:whale2: :steam_locomotive: :grapes:
+    :pig2: :tophat: :arrow_right: :symbols: :grapes:
+        :apple: :beer: :microscope: :abc:?????????:x:t:x:n??:x:r?????????????????? !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~:abc: :dog2:
+    :watermelon:
+:watermelon:
+
+
+:whale2: :radio: :grapes:
+    :cake: code :abcd:
+    :cake: prog_len :steam_locomotive:
+    :cake: args :ice_cream::shell::steam_locomotive:
+
+    :cat2: :bulb: @brainfuck :abcd: @optimize :ok_hand: :grapes:
+        :custard: code @brainfuck
+        :custard: prog_len :straight_ruler: code
+        :custard: args :large_blue_diamond: :ice_cream::shell::steam_locomotive: :penguin: prog_len
+        :scroll: :dog2: @optimize
+    :watermelon:
+
+    :pig2: :scroll: @optimize :ok_hand: :grapes:
+        :icecream: braces :large_blue_diamond: :ice_cream::scroll::steam_locomotive: :frog:
+        :repeat_one: char code :grapes:
+            :tangerine: @optimize: :grapes:
+                :tangerine: :stuck_out_tongue: char :beer: :microscope: code -1 :grapes:
+                    :tangerine: :icecream: legal :mag: :abc:<>+-:abc: :abcd: char :grapes::
+                        :pig: args -1 :heavy_plus_sign: :pig_nose: args -1
+                    :watermelon:
+                :watermelon:
+
+
+
+            :watermelon:
+        :watermelon:
+    :watermelon:
+:watermelon:
+
+    def load(self, brainfuck, optimize=True):
+        braces = []
+        self.code = code = [Command('begin')]
+        for char in brainfuck:
+            if char in '[]<>.,+-':
+                if optimize and char in '<>+-' and char==code[-1].char:
+                    code[-1].arg+=1
+                else:
+                    code.append(Command(char))
+                    if char=='[':
+                        braces.append(len(code)-1)
+                    elif char==']':
+                        left = braces.pop()
+                        code[left].arg = len(code)-1
+                        code[-1].arg = left
+        self.code.append(Command('end'))
+
+    def run(self):
+        tape = [0]*30000
+        xc = 0
+        pc = 0
+        code = self.code
+        prog_len = len(code)
+        while pc<prog_len:
+            cmd = code[pc]
+            if cmd.char=='+':
+                tape[xc]+=cmd.arg
+            elif cmd.char=='-':
+                tape[xc]-=cmd.arg
+            elif cmd.char=='>':
+                xc+=cmd.arg
+            elif cmd.char=='<':
+                xc-=cmd.arg
+            elif cmd.char=='.':
+                sys.stdout.write(chr(tape[xc]))
+                sys.stdout.flush()
+            elif cmd.char==']' and tape[xc]!=0:
+                pc = cmd.arg
+            elif cmd.char=='[' and tape[xc]==0:
+                pc = cmd.arg
+            pc+=1
+

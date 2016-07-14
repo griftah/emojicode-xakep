@@ -6,7 +6,9 @@
 from glob import glob
 import os
 
-for bf in glob('*.b'):
+path = os.path.dirname(__file__)
+
+for bf in glob('%s/*.b'%path):
     for filename in glob(bf.replace('.b', '.*')):
         if not filename.endswith('.b'):
             print filename
