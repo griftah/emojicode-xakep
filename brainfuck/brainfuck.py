@@ -87,7 +87,7 @@ class Compiler(Brainfuck):
 
     def write(self, f, src, indent):
         if src:
-            f.write((u'\n'+src).replace(u'\n', u'\n'+u'    '*indent))
+            f.write((u'\n'+src).replace(u'\n', u'\n'+u'\t'*indent))
 
     def compile(self, f):
         indent = 0
@@ -126,6 +126,7 @@ xc = 0
 if __name__=='__main__':
     import codecs
     import subprocess
+    import time
 
     source_filename = None
     optimize = False
@@ -133,6 +134,8 @@ if __name__=='__main__':
     ext = ''            # расширение нового файла
     run = True          # исполнять
     run_command = None  # команда для запуска скомпилированого файла
+    t = 0
+
     for arg in sys.argv[1:]:
         if arg=='-o':
             optimize = True
@@ -149,17 +152,27 @@ if __name__=='__main__':
         with codecs.open(source_filename, 'r', 'utf-8') as f:
             source = f.read()
 
+        import os
+
         if compiler:
             output_filename = source_filename.replace('.b', ext)
             with codecs.open(output_filename, 'w', 'utf-8') as f:
                 compiler(source, optimize).compile(f)
                 if run_command and run:
+                    t0 = time.clock()
+                    print run_command%output_filename
                     subprocess.call(run_command%output_filename, shell=True)
+                    t = time.clock()-t0
                     subprocess.call(u'rm %s'%output_filename, shell=True)
                 else:
                     print source_filename, '->', output_filename
         else:
+            t0 = time.clock()
             Brainfuck(source, optimize).run()
+            t = time.clock()-t0
+
+        if t:
+            print '\nt =', t, 's'
     else:
         for example, comment in (
             ('%s source.b', 'исполнить source.b интерпретатором'),

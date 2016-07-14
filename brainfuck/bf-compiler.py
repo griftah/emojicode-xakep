@@ -3,7 +3,7 @@
 # Компилятор Brainfuck
 
 import sys, os, codecs
-import emoji
+# import emoji
 
 class Command(object):
     # cmd - команда Brainfuck
@@ -142,7 +142,7 @@ def emo_compile(code, f=sys.stdout,  optimize = False):
     w.define('[', u':repeat: :negative_squared_cross_mark: :stuck_out_tongue: :beer: :pig_nose: tape xc 0 :grapes:', indent=1)
     w.define(']', u':watermelon:', indent=-1)
     w.define('end', u':watermelon:', indent=-1)
-    f.write(emoji.emojize(w.compile(code), True))
+    # f.write(emoji.emojize(w.compile(code), True))
 
 if __name__=='__main__':
     if len(sys.argv)>1:
