@@ -160,7 +160,6 @@ if __name__=='__main__':
                 compiler(source, optimize).compile(f)
                 if run_command and run:
                     t0 = time.clock()
-                    print run_command%output_filename
                     subprocess.call(run_command%output_filename, shell=True)
                     t = time.clock()-t0
                     subprocess.call(u'rm %s'%output_filename, shell=True)
