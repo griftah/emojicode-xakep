@@ -4,37 +4,29 @@
 import sys
 
 
-class Command(object):
-    def __init__(self, char):
-        self.char = char
-        self.arg = 1
-
-    def __repr__(self):
-        return '%s:%d'%(self.char, self.arg)
-
-
 class Brainfuck(object):
     def __init__(self, brainfuck=None, optimize=True):
-        self.code = []
         if brainfuck:
             self.load(brainfuck, optimize)
 
     def load(self, brainfuck, optimize=True):
         brackets = []
-        self.code = code = [Command('begin')]
+        chars = ['begin']
+        args = [1]
         for char in brainfuck:
             if char in '[]<>.,+-':
-                if optimize and char in '<>+-' and char==code[-1].char:
-                    code[-1].arg+=1
+                if optimize and char in '<>+-' and char==chars[-1]:
+                    args[-1]+=1
                 else:
-                    code.append(Command(char))
+                    chars.append(char); args.append(1)
                     if char=='[':
-                        brackets.append(len(code)-1)
+                        brackets.append(len(chars)-1)
                     elif char==']':
                         left = brackets.pop()
-                        code[left].arg = len(code)-1
-                        code[-1].arg = left
-        self.code.append(Command('end'))
+                        args[left] = len(chars)-1
+                        args[-1] = left
+        chars.append('end'); args.append(1)
+        self.code = zip(chars, args)
 
     def run(self):
         tape = [0]*30000
@@ -43,23 +35,22 @@ class Brainfuck(object):
         code = self.code
         prog_len = len(code)
         while pc<prog_len:
-            cmd = code[pc]
-            # print pc-1, '\t', cmd.char, '\t', cmd.arg, '\t', tape[xc]
-            if cmd.char=='+':
-                tape[xc]+=cmd.arg
-            elif cmd.char=='-':
-                tape[xc]-=cmd.arg
-            elif cmd.char=='>':
-                xc+=cmd.arg
-            elif cmd.char=='<':
-                xc-=cmd.arg
-            elif cmd.char=='.':
+            char, arg = code[pc]
+            if char=='+':
+                tape[xc]+=arg
+            elif char=='-':
+                tape[xc]-=arg
+            elif char=='>':
+                xc+=arg
+            elif char=='<':
+                xc-=arg
+            elif char=='.':
                 sys.stdout.write(chr(tape[xc]))
                 sys.stdout.flush()
-            elif cmd.char==']' and tape[xc]!=0:
-                pc = cmd.arg
-            elif cmd.char=='[' and tape[xc]==0:
-                pc = cmd.arg
+            elif char==']' and tape[xc]!=0:
+                pc = arg
+            elif char=='[' and tape[xc]==0:
+                pc = arg
             pc+=1
 
 
@@ -72,7 +63,7 @@ class Compiler(Brainfuck):
     # Определение команды на другом языке
     class Definition(object):
         # src - исходник команды Brainfuck на другом языке.
-        # src_opt - исходник команды с аргументом. требует %d
+        # src_arg - исходник команды с аргументом. требует %d
         # indent - сдвиг.
         def __init__(self, src, src_arg, indent):
             src_has_arg = src.count('%d') if src else 0
@@ -93,14 +84,14 @@ class Compiler(Brainfuck):
 
     def compile(self, f):
         indent = 0
-        for cmd in self.code:
+        for char, arg in self.code:
             try:
-                d = self.commands[cmd.char]
+                d = self.commands[char]
                 if d.indent:
                     self.write(f, d.src, indent)
                     indent+=d.indent
-                elif cmd.arg>1:
-                    self.write(f, d.src_arg%cmd.arg, indent)
+                elif arg>1:
+                    self.write(f, d.src_arg%arg, indent)
                 else:
                     self.write(f, d.src, indent)
             except KeyError:
