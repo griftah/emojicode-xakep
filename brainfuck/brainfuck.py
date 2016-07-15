@@ -3,16 +3,15 @@
 
 import sys
 
-
 class Brainfuck(object):
     def __init__(self, brainfuck=None, optimize=True):
         if brainfuck:
             self.load(brainfuck, optimize)
 
     def load(self, brainfuck, optimize=True):
-        brackets = []
         chars = ['begin']
         args = [1]
+        brackets = []
         for char in brainfuck:
             if char in '[]<>.,+-':
                 if optimize and char in '<>+-' and char==chars[-1]:
@@ -29,10 +28,9 @@ class Brainfuck(object):
         self.code = zip(chars, args)
 
     def run(self):
-        tape = [0]*30000
-        xc = 0
-        pc = 0
         code = self.code
+        tape = [0]*30000
+        pc = xc = 0
         prog_len = len(code)
         while pc<prog_len:
             char, arg = code[pc]
@@ -47,7 +45,7 @@ class Brainfuck(object):
             elif char=='.':
                 sys.stdout.write(chr(tape[xc]))
                 sys.stdout.flush()
-            elif char==']' and tape[xc]!=0:
+            elif char==']' and tape[xc]:
                 pc = arg
             elif char=='[' and tape[xc]==0:
                 pc = arg
@@ -55,28 +53,21 @@ class Brainfuck(object):
 
 
 class Compiler(Brainfuck):
+    # Определение команды commands[char] = (src, src_arg, indent)
+    # src - исходник команды Brainfuck на другом языке.
+    # src_arg - исходник команды с аргументом. требует %d
+    # tabs - сдвиг.
+    commands = {}
+
     def __init__(self, brainfuck=None, optimize=True):
         super(Compiler, self).__init__(brainfuck, optimize)
-        self.commands = {}
-        self.define_lang()
-
-    # Определение команды на другом языке
-    class Definition(object):
-        # src - исходник команды Brainfuck на другом языке.
-        # src_arg - исходник команды с аргументом. требует %d
-        # indent - сдвиг.
-        def __init__(self, src, src_arg, indent):
-            src_has_arg = src.count('%d') if src else 0
-            self.src = src%1 if src_has_arg else src
-            self.src_arg = src_arg if src_arg else src
-            self.indent = indent
-
-    def define(self, char, src, src_arg=None, indent=0):
-        self.commands[char] = Compiler.Definition(src, src_arg, indent)
-
-    # Определение соответствий команд Brainfuck конкретному языку
-    def define_lang(self):
-        pass
+        for char, (src, src_arg, tabs) in self.commands.iteritems():
+            src_has_arg = src.find('%d')>0 if src else 0
+            self.commands[char] = (
+                src%1 if src_has_arg else src,
+                src_arg if src_arg else src,
+                tabs
+            )
 
     def write(self, f, src, indent):
         if src:
@@ -86,41 +77,39 @@ class Compiler(Brainfuck):
         indent = 0
         for char, arg in self.code:
             try:
-                d = self.commands[char]
-                if d.indent:
-                    self.write(f, d.src, indent)
-                    indent+=d.indent
+                src, src_arg, tabs = self.commands[char]
+                if tabs:
+                    self.write(f, src, indent)
+                    indent+=tabs
                 elif arg>1:
-                    self.write(f, d.src_arg%arg, indent)
+                    self.write(f, src_arg%arg, indent)
                 else:
-                    self.write(f, d.src, indent)
+                    self.write(f, src, indent)
             except KeyError:
                 pass
         f.write('\n')
 
 
 class PythonCompiler(Compiler):
-    def define_lang(self):
-        self.define('begin',
-u'''# coding=utf-8
+    commands = {
+        'begin': (u'''# coding=utf-8
 # Автоматически скомпилировано из Brainfuck.
 from sys import stdout
 tape = [0]*32000
-xc = 0
-''')
-        self.define('+', u'tape[xc]+=%d')
-        self.define('-', u'tape[xc]-=%d')
-        self.define('.', u'stdout.write(chr(tape[xc])); stdout.flush()')
-        self.define('>', u'xc+=%d')
-        self.define('<', u'xc-=%d')
-        self.define('[', u'while tape[xc]:', indent=1)
-        self.define(']', None, indent=-1)
+xc = 0''', None, 0),
+        '+': (u'tape[xc]+=%d', None, 0),
+        '-': (u'tape[xc]-=%d', None, 0),
+        '.': (u'stdout.write(chr(tape[xc])); stdout.flush()', None, 0),
+        '>': (u'xc+=%d', None, 0),
+        '<': (u'xc-=%d', None, 0),
+        '[': (u'while tape[xc]:', None, 1),
+        ']': (None, None, -1)
+    }
 
 
 class EmojicodeCompiler(Compiler):
-    def define_lang(self):
-        self.define('begin',
-u'''👴 Автоматически скомпилировано из Brainfuck.
+    commands = {
+        'begin': (u'''👴 Автоматически скомпилировано из Brainfuck.
 📦 files 🔴
 
 🐋 🚂 🍇
@@ -131,41 +120,42 @@ u'''👴 Автоматически скомпилировано из Brainfuck.
 
 🏁 🍇
     🍦 stdout 🍩📤📄
-    👴 🍦 tape 🍨 0 🍆
-    🍦 tape 🔷 🍨🐚🚂 🐸
+    🍦 tape 🔷 🍨🐚🚂 🐧 32000
     🍮 xc 0
 
     🔂 i ⏩ 1 32000 🍇
         🐻 tape 0
     🍉
-''', indent=1)
-        self.define('+', u'🐷 tape xc ➕ 🍺 🐽 tape xc %d')
-        self.define('-', u'🐷 tape xc ➖ 🍺 🐽 tape xc %d')
-        self.define('.', u'✏ stdout 📇 🔡 🎩 🍺 🐽 tape xc')
-        self.define('>', u'🍫 xc', u'🍮 xc ➕ xc %d')
-        self.define('<', u'🍳 xc', u'🍮 xc ➖ xc %d')
-        self.define('[', u'🔁 ❎ 😛 🍺 🐽 tape xc 0 🍇', indent=1)
-        self.define(']', u'🍉', indent=-1)
-        self.define('end', u'🍉', indent=-1)
+''', None, 1),
+        '+': (u'🐷 tape xc ➕ 🍺 🐽 tape xc %d', None, 0),
+        '-': (u'🐷 tape xc ➖ 🍺 🐽 tape xc %d', None, 0),
+        '.': (u'✏ stdout 📇 🔡 🎩 🍺 🐽 tape xc', None, 0),
+        '>': (u'🍫 xc', u'🍮 xc ➕ xc %d', 0),
+        '<': (u'🍳 xc', u'🍮 xc ➖ xc %d', 0),
+        '[': (u'🔁 ❎ 😛 🍺 🐽 tape xc 0 🍇', None, 1),
+        ']': (u'🍉', None, -1),
+        'end': (u'🍉', None, -1)
+    }
 
 
 class CCompiler(Compiler):
-    def define_lang(self):
-        self.define('begin',
-u'''/* Автоматически скомпилировано из Brainfuck. */
+    commands = {
+        'begin': (u'''/* Автоматически скомпилировано из Brainfuck. */
 #include <stdio.h>
 int main(int argc, char **argv) {
     int tape[32768];
     int xc = 0;
-''', indent=1)
-        self.define('+', u'tape[xc]++;', u'tape[xc]+=%d;')
-        self.define('-', u'tape[xc]--;', u'tape[xc]-=%d;')
-        self.define('.', u'putchar(tape[xc]);')
-        self.define('>', u'xc++;', u'xc+=%d;')
-        self.define('<', u'xc--;', u'xc-=%d;')
-        self.define('[', u'while (tape[xc]) {', indent=1)
-        self.define(']', u'}', indent=-1)
-        self.define('end', u'putchar(10); return 0; }', indent=-1)
+''', None, 1),
+        '+': (u'tape[xc]++;', u'tape[xc]+=%d;', 0),
+        '-': (u'tape[xc]--;', u'tape[xc]-=%d;', 0),
+        '.': (u'putchar(tape[xc]);', None, 0),
+        '>': (u'xc++;', u'xc+=%d;', 0),
+        '<': (u'xc--;', u'xc-=%d;', 0),
+        '[': (u'while (tape[xc]) {', None, 1),
+        ']': (u'}', None, -1),
+        'end': (u'putchar(10); return 0; }', None, -1)
+    }
+
 
 
 if __name__=='__main__':

@@ -86,7 +86,7 @@
         :custard: исходник :beer: :abcd: :beer: :doughnut: :card_index: :page_facing_up: имя-файла
     :watermelon:
     :strawberry: :grapes:
-        :custard: исходник :beer: :abcd: :beer: :doughnut: :card_index: :page_facing_up: :abc:hello.b:abc:
+        :custard: исходник :abc:++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.:abc:
     :watermelon:
     :icecream: program :large_blue_diamond: :film_projector::scroll: исходник
     :runner: program
