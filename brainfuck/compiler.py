@@ -2,7 +2,6 @@
 
 import codecs
 import subprocess
-import os
 
 from brainfuck import Brainfuck
 
@@ -66,8 +65,7 @@ class Compiler(Brainfuck):
     # Удаление сгенерированных файлов
     def clean(self):
         for name in self.output:
-            if os.path.exists(name):
-                subprocess.call(u'rm %s'%name, shell=True)
+            subprocess.call(u'rm %s'%name, shell=True)
 
 
 class PythonCompiler(Compiler):
@@ -206,9 +204,9 @@ public class Brainfuck {
         'end': (u'\n}\n}', None, -2)
     }
     ext = '.java'
-    run_cmd = 'java %s'
+    run_cmd = 'java Brainfuck # %s'
 
     def prepare(self):
         subprocess.call('mv %s Brainfuck.java'%self.output.pop(), shell=True)
         subprocess.call('javac Brainfuck.java', shell=True)
-        self.output = ['Brainfuck.java', 'Brainfuck.class', 'Brainfuck']
+        self.output = ['Brainfuck.java', 'Brainfuck.class']
