@@ -1,0 +1,93 @@
+:package: files :red_circle:
+
+:older_man: аналог chr в питоне
+:whale2: :steam_locomotive: :grapes:
+    :pig2: :tophat: :arrow_right: :symbols: :grapes:
+        :apple: :beer: :microscope: :abc:?????????:x:t:x:n??:x:r?????????????????? !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~:abc: :dog2:
+    :watermelon:
+:watermelon:
+
+
+:rabbit2: :film_projector: :grapes:
+    :cake: code :ice_cream::shell::symbols:
+    :cake: args :ice_cream::shell::steam_locomotive:
+
+    :cat2: :scroll: @text :abcd: :grapes:
+        :custard: code :large_blue_diamond: :ice_cream::shell::symbols: :frog:
+        :custard: args :large_blue_diamond: :ice_cream::shell::steam_locomotive: :frog:
+        :icecream: brackets :large_blue_diamond: :ice_cream::shell::steam_locomotive: :frog:
+
+        :custard: pc 0
+        :repeat_one: char @text :grapes:
+            :tangerine: :icecream: legal :mag: :abc:[]<>+-,.:abc: :abcd: char :grapes:
+                :bear: code char
+                :bear: args 1
+                :tangerine: :stuck_out_tongue: char :keycap_ten:[ :grapes:
+                    :bear: brackets pc
+                :watermelon:
+                :lemon: :stuck_out_tongue: char :keycap_ten:] :grapes:
+                    :icecream: left :beer: :panda_face: brackets
+                    :icecream: right pc
+                    :pig: args left right
+                    :pig: args right :heavy_minus_sign: left 1
+                :watermelon:
+                :chocolate_bar: pc
+            :watermelon:
+        :watermelon:
+    :watermelon:
+
+    :pig2: :runner: :grapes:
+        :cake: char :symbols:
+        :icecream: stdout :doughnut::outbox_tray::page_facing_up:
+        :icecream: code_len :chicken: code
+        :icecream: tape :large_blue_diamond: :ice_cream::shell::steam_locomotive: :penguin: 32000
+        :custard: xc 0
+        :custard: pc 0
+
+        :repeat_one: индекс :fast_forward: 0 32000 :grapes:
+            :bear: tape 0
+        :watermelon:
+
+        :repeat: :arrow_backward: pc code_len :grapes:
+            :custard: char :beer: :pig_nose: code pc
+            # :grinning: :cookie::abcd: pc 10 :abc::x:t:abc: :abcd: char :abc::x:t:abc: :abcd: :beer: :pig_nose: bracket_map pc  10 :abc::x:t:abc: :abcd: :beer: :pig_nose: tape xc 10 :cookie:
+            :tangerine: :stuck_out_tongue: char :keycap_ten:+ :grapes:
+                :pig: tape xc :heavy_plus_sign: :beer: :pig_nose: tape xc 1
+            :watermelon:
+            :lemon: :stuck_out_tongue: char :keycap_ten:- :grapes:
+                :pig: tape xc :heavy_minus_sign: :beer: :pig_nose: tape xc 1
+            :watermelon:
+            :lemon: :stuck_out_tongue: char :keycap_ten:> :grapes:
+                :chocolate_bar: xc
+            :watermelon:
+            :lemon: :stuck_out_tongue: char :keycap_ten:< :grapes:
+                :cooking: xc
+            :watermelon:
+            :lemon: :confetti_ball: :stuck_out_tongue: char :keycap_ten:[  :stuck_out_tongue: :beer: :pig_nose: tape xc 0 :grapes:
+                :custard: pc :beer: :pig_nose: args pc
+            :watermelon:
+            :lemon: :stuck_out_tongue: char :keycap_ten:]  :grapes:
+                :custard: pc :beer: :pig_nose: args pc
+            :watermelon:
+            :lemon: :stuck_out_tongue: char :keycap_ten:. :grapes:
+                # :grinning: :abcd: :beer: :pig_nose: tape xc 10
+                :pencil2: stdout :card_index: :abcd: :tophat: :beer: :pig_nose: tape xc
+            :watermelon:
+            :chocolate_bar: pc
+        :watermelon:
+    :watermelon:
+:watermelon:
+
+
+:checkered_flag: :grapes:
+    :icecream: аргументы :doughnut::film_frames::computer:
+    :custard: исходник :abc::abc:
+    :tangerine: :icecream: имя-файла :pig_nose: аргументы 2 :grapes:
+        :custard: исходник :beer: :abcd: :beer: :doughnut: :card_index: :page_facing_up: имя-файла
+    :watermelon:
+    :strawberry: :grapes:
+        :custard: исходник :abc:++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.:abc:
+    :watermelon:
+    :icecream: program :large_blue_diamond: :film_projector::scroll: исходник
+    :runner: program
+:watermelon:

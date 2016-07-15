@@ -14,6 +14,7 @@ for bf in glob('%s/*.b'%path):
             print filename
             os.system('rm %s'%filename)
 
-if os.path.exists('a.out'):
-    print 'a.out'
-    os.system('rm a.out')
+for name in ('a.out', 'Brainfuck.java', 'Brainfuck.class'):
+    if os.path.exists(name):
+        print name
+        os.system('rm %s'%name)
