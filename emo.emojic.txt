@@ -2,12 +2,12 @@
 
 :older_man: alias emo='emojicode emo.emojib'
 
-:whale2: :book: :grapes:
+:whale2: :books: :grapes:
     :older_man: заменить все названия эмодзи в
     :older_man: строке на сами эмодзи
     :pig2: :artist_palette: @исходный-текст :abcd: :arrow_right: :abcd: :grapes:
         :custard: текст @исходный-текст
-        :repeat_one: эмодзи словарь :grapes:
+        :repeat_one: эмодзи список :grapes:
             :custard: текст :artist_palette: текст :gear:эмодзи :blossom:эмодзи
         :watermelon:
         :apple: текст
@@ -16,7 +16,7 @@
 
 
 :checkered_flag: :grapes:
-    :icecream: словарь-эмодзи :large_blue_diamond: :book::open_book: :abc:emoji.txt:abc:
+    :icecream: список-эмодзи :large_blue_diamond: :books::open_book: :abc:emoji.txt:abc:
     :icecream: аргументы :doughnut::film_frames::computer:
     :custard: имя-результата :abc::abc:
     :repeat_one: индекс :fast_forward: 2 :chicken: аргументы :grapes:
@@ -25,7 +25,7 @@
         :grinning: :cookie::abc:Файл :abc: имя-исходника :abc: -> :abc: имя-результата:cookie:
 
         :icecream: исходник :beer: :abcd: :beer: :doughnut::card_index::page_facing_up: имя-исходника
-        :icecream: результат :artist_palette: словарь-эмодзи исходник
+        :icecream: результат :artist_palette: список-эмодзи исходник
         :doughnut::radio::page_facing_up: имя-результата :card_index: результат
         :doughnut::man_in_business_suit_levitating::computer: :cookie::abc:emojicodec :abc: имя-результата:cookie:
     :watermelon:
