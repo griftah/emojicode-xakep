@@ -2,6 +2,7 @@
 
 import codecs
 import subprocess
+import os
 
 from brainfuck import Brainfuck
 
@@ -65,7 +66,7 @@ class Compiler(Brainfuck):
     # Удаление сгенерированных файлов
     def clean(self):
         for name in self.output:
-            subprocess.call(u'rm %s'%name, shell=True)
+            os.remove(name)
 
 
 class PythonCompiler(Compiler):

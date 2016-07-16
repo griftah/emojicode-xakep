@@ -12,9 +12,9 @@ for bf in glob('%s/*.b'%path):
     for filename in glob(bf.replace('.b', '.*')):
         if not filename.endswith('.b'):
             print filename
-            os.system('rm %s'%filename)
+            os.remove(filename)
 
-for name in ('a.out', 'Brainfuck.java', 'Brainfuck.class'):
-    if os.path.exists(name):
-        print name
-        os.system('rm %s'%name)
+for filename in ('a.out', 'Brainfuck.java', 'Brainfuck.class'):
+    if os.path.exists(filename):
+        print filename
+        os.remove(filename)
