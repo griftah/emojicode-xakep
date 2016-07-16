@@ -3,10 +3,10 @@
 
 import sys
 import codecs
-import subprocess
 import timeit
 
 from compiler import *
+from clean import clean
 
 class PythonInterpreter(Brainfuck):
     def compile(self, name, optimize=True):
@@ -53,15 +53,19 @@ def run(filename, optimize, lang, justsave=False):
 
 def runall(filename):
     results = []
-    for lang in brainfucks.iterkeys():
-        results.append(run(filename, False, lang))
-        results.append(run(filename, True, lang))
+    try:
+        for lang in brainfucks.iterkeys():
+            t, bf_name, optimize = run(filename, False, lang)
+            t_opt = run(filename, True, lang)[0] if lang!='eci' else 0.0
+            results.append((t, t_opt, bf_name))
+    except KeyboardInterrupt:
+        print
+        clean()
     print '-'*40
-    for t, bf_name, optimize in sorted(results, key=lambda a: a[0]):
+    print 't\tt opt\ttitle'
+    for result in sorted(results, key=lambda a: a[0]):
         if t:
-            print '%.3f\t'%t,
-            print '%s\t'%bf_name,
-            print 'opt' if optimize else ''
+            print '%.3f\t%.3f\t%s'%result
 
 if __name__=='__main__':
     filename = None
