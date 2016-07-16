@@ -47,9 +47,7 @@ class Brainfuck(object):
             elif char=='.':
                 sys.stdout.write(chr(tape[xc]))
                 sys.stdout.flush()
-            elif char==']' and tape[xc]:
-                pc = arg
-            elif char=='[' and tape[xc]==0:
+            elif (char==']' and tape[xc]) or (char=='[' and tape[xc]==0):
                 pc = arg
             pc+=1
 

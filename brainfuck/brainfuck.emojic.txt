@@ -50,7 +50,6 @@
 
         :repeat: :arrow_backward: pc code_len :grapes:
             :custard: char :beer: :pig_nose: code pc
-            # :grinning: :cookie::abcd: pc 10 :abc::x:t:abc: :abcd: char :abc::x:t:abc: :abcd: :beer: :pig_nose: bracket_map pc  10 :abc::x:t:abc: :abcd: :beer: :pig_nose: tape xc 10 :cookie:
             :tangerine: :stuck_out_tongue: char :keycap_ten:+ :grapes:
                 :pig: tape xc :heavy_plus_sign: :beer: :pig_nose: tape xc 1
             :watermelon:
