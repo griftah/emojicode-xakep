@@ -33,6 +33,7 @@ brainfucks = {
     'javascript': (JavascriptCompiler, 'Javascript Compiler'),
     'c':          (CCompiler, 'C Compiler'),
     'java':       (JavaCompiler, 'Java Compiler'),
+    'profiler':   (Profiler, 'Profiler'),
 }
 
 # Запустить один интерпретатор

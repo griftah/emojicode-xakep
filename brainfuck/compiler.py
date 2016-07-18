@@ -211,3 +211,27 @@ public class Brainfuck {
         subprocess.call('mv %s Brainfuck.java'%self.output.pop(), shell=True)
         subprocess.call('javac Brainfuck.java', shell=True)
         self.output = ['Brainfuck.java', 'Brainfuck.class']
+
+
+# Собирает информацию о том, какие команды выполняет чаще всего.
+class Profiler(JavascriptCompiler):
+    commands = {
+        'begin': (u'''// Автоматически скомпилировано из Brainfuck.
+profile = {'+':0, '-':0, '.':0, '<':0, '>':0, '[':0, ']':0 }
+stdout = process.stdout
+tape = Array.apply(null, Array(32000)).map(Number.prototype.valueOf,0);
+xc = 0''', None, 0),
+        '+': (u'tape[xc]++; profile["+"]++;', u'tape[xc]+=%d; profile["+"]++;', 0),
+        '-': (u'tape[xc]--; profile["-"]++;', u'tape[xc]-=%d; profile["-"]++;', 0),
+        '.': (u'stdout.write(String.fromCharCode(tape[xc])); profile["."]++;', None, 0),
+        '>': (u'xc++; profile[">"]++;', u'xc+=%d; profile[">"]++;', 0),
+        '<': (u'xc--; profile["<"]++;', u'xc-=%d; profile["<"]++;', 0),
+        '[': (u'while (tape[xc]) { profile["["]++;', None, 1),
+        ']': (u'profile["]"]++; }', None, -1),
+        'end': (u'''stdout.write("\\nProfile\\n");
+max = profile['+']+profile['-']+profile['.']+profile['<']+profile['>']+profile['[']+profile[']'];
+for (var char in profile) {
+    stdout.write(char+'\t'+profile[char].toString()+'\\t'+(profile[char]/max*100).toFixed(2)+'%\\n');
+}
+''', None, -1)
+    }
