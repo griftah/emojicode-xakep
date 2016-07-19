@@ -19,6 +19,8 @@ class EmojicodeInterpreter(Compiler):
     run_cmd = u'emojicode brainfuck.emojib %s'
 
     def compile(self, name, optimize=True):
+        if optimize:
+            self.run_cmd = u'emojicode brainfuck.emojib -o %s'
         self.output = [name]
 
     def clean(self): pass
@@ -57,7 +59,7 @@ def runall(filename):
     try:
         for lang in brainfucks.iterkeys():
             t, bf_name, optimize = run(filename, False, lang)
-            t_opt = run(filename, True, lang)[0] if lang!='eci' else 0.0
+            t_opt = run(filename, True, lang)[0]
             results.append((t, t_opt, bf_name))
     except KeyboardInterrupt:
         print
